@@ -1,6 +1,4 @@
-
-
-#  Create Security Group allowing SSH from 0.0.0.0/0
+# Step 10: Create Security Group allowing SSH from 0.0.0.0/0
 resource "aws_security_group" "ssh_from_anywhere" {
   vpc_id = module.network.M-vpc_id
 
@@ -20,7 +18,7 @@ resource "aws_security_group" "ssh_from_anywhere" {
   }
 }
 
-# Create Security Group allowing SSH and Port 3000 from VPC CIDR only
+# Step 11: Create Security Group allowing SSH and Port 3000 from VPC CIDR only
 resource "aws_security_group" "ssh_and_port3000_vpc_only" {
   vpc_id = module.network.M-vpc_id
 
@@ -52,7 +50,7 @@ resource "aws_key_pair" "tf-key-pair" {
   public_key = tls_private_key.my_keypair.public_key_openssh
 } 
 
-#  Create EC2 (Bastion) instance in Public Subnet with Security Group from Step 10
+# Step 12: Create EC2 (Bastion) instance in Public Subnet with Security Group from Step 10
 resource "aws_instance" "bastion_new" {
   ami                    = var.ec2_details.ami    
   instance_type          = var.ec2_details.type
@@ -61,10 +59,9 @@ resource "aws_instance" "bastion_new" {
   key_name               = var.ec2_details.key_name 
   associate_public_ip_address = true
 
+  //// spaaaace at the first of the user data can cause that it not recognized 
   user_data = <<-EOF
   #!/bin/bash
-  mkdir huda    
-  mkdir /hudaaaaaaa
   touch /home/ec2-user/key.pem
   echo '${tls_private_key.my_keypair.private_key_pem}' > /home/ec2-user/key.pem
   chmod 400 /home/ec2-user/key.pem
@@ -73,7 +70,7 @@ resource "aws_instance" "bastion_new" {
 
 }
 
-# Create EC2 (Application) instance in Private Subnet with Security Group 
+# Step 13: Create EC2 (Application) instance in Private Subnet with Security Group from Step 11
 resource "aws_instance" "application" {
   ami                    = var.ec2_details.ami
   instance_type          = var.ec2_details.type

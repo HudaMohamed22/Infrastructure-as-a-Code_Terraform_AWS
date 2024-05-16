@@ -1,6 +1,6 @@
 variable vpc_cidr {
   type        = string
-  description = "description"
+  description = "VPC Cidr get from module's user"
 }
 
 variable subnets_details {
@@ -11,5 +11,5 @@ variable subnets_details {
 
   }))
 
-  description = "description"
+  description = "subnets details get from module's user"
 }

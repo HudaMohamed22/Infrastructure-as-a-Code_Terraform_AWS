@@ -9,17 +9,22 @@ subnets_details=[
     cidr="10.0.1.0/24",
     type="public"
 },
+{
+    name="public2",
+    cidr="10.0.2.0/24",
+    type="public"
+},
 
 
 {
     name="private1",
-    cidr="10.0.2.0/24",
+    cidr="10.0.3.0/24",
     type="private"
 },
 
 {
     name="private2",
-    cidr="10.0.3.0/24",
+    cidr="10.0.4.0/24",
     type="private"
 },
 
